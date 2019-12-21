@@ -221,6 +221,6 @@ __Executando o projeto__
 
 `<DELETE a excluição da Pessoas por id>`
 
-![Image POSTMAN delete](https://github.com/wesllenalves/prova-api-laravel/get-capture-delete.GIF)
+![Image POSTMAN delete](https://github.com/wesllenalves/prova-api-laravel/blob/master/get-capture-delete.GIF)
 
 
