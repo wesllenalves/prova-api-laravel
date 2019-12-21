@@ -14,6 +14,7 @@ class TbPessoa extends Migration
     public function up()
     {
         Schema::create('tb_pessoas', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->string('no_pessoa');
             $table->string('nu_cpf');
@@ -21,7 +22,7 @@ class TbPessoa extends Migration
             $table->string('nu_telefone');
             $table->string('nu_whatsapp');
             $table->string('nu_rg');
-            $table->bigInteger('users_id')->index('tb_pessoas_users_id')->unsigned();
+            $table->bigInteger('users_id')->index('fk_pessoas_users_id')->unsigned();
             $table->timestamps();
         });
     }

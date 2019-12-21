@@ -14,7 +14,8 @@ class TbUsers extends Migration
     public function up()
     {
         Schema::create('tb_users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->engine = 'InnoDB';
+            $table->bigIncrements('idusers');
             $table->string('username');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

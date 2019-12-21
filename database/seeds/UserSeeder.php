@@ -17,7 +17,12 @@ class UserSeeder extends Seeder
             'email' => 'wesllenalves@gmail.com',
             'email_verified_at' => new DateTime(),
             'password' => '123456',
-            'created_at' => new DateTime(),
+        ]);
+        DB::table('tb_users')->insert([
+            'username' => 'Fabio Carlos',
+            'email' => 'fabioteste@gmail.com',
+            'email_verified_at' => new DateTime(),
+            'password' => '123456',
         ]);
     }
 }

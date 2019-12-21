@@ -14,7 +14,7 @@ class AddForeignKeysToTbPessoas extends Migration
     public function up()
     {
         Schema::table('tb_pessoas', function (Blueprint $table) {
-            $table->foreign('users_id', 'tb_pessoas_users_id')->references('id')->on('tb_users')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('users_id', 'fk_pessoas_users_id')->references('idusers')->on('tb_users')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -26,7 +26,7 @@ class AddForeignKeysToTbPessoas extends Migration
     public function down()
     {
         Schema::table('tb_pessoas', function (Blueprint $table) {
-            $table->dropForeign('tb_pessoas_users_id');
+            $table->dropForeign('fk_pessoas_users_id');
         });
     }
 }

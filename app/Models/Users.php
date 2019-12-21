@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Users extends Model
 {   
+    protected $table = 'tb_users';
+    protected $primaryKey = 'idusers';
+    public $timestamps = true;
     /**
      * The attributes that are mass assignable.
      *
@@ -33,8 +36,8 @@ class Users extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public function Pessoas()
+    public function pessoa()
     {
-        return $this->hasOne(\App\Models\Pessoas::class, 'users_id', 'id');
+        return $this->hasOne(\App\Models\Pessoas::class, 'users_id', 'idusers');
     }
 }
