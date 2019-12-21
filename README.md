@@ -204,19 +204,19 @@ __Executando o projeto__
 
 `<Get de todas as Pessoas>`
 
-![Image POSTMAN index](https://github.com/wesllenalves/prova-api-laravel/get-capture-index.GIF)
+![Image POSTMAN index](https://github.com/wesllenalves/prova-api-laravel/blob/master/get-capture-index.GIF)
 
 `<Get de Pesssoas por id>`
 
-![Image POSTMAN show](https://github.com/wesllenalves/prova-api-laravel/get-capture-show.GIF)
+![Image POSTMAN show](https://github.com/wesllenalves/prova-api-laravel/blob/master/get-capture-show.GIF)
 
 `<POST de criação de Pessoas>`
 
-![Image POSTMAN store](https://github.com/wesllenalves/prova-api-laravel/get-capture-store.GIF)
+![Image POSTMAN store](https://github.com/wesllenalves/prova-api-laravel/blob/master/get-capture-store.GIF)
 
 `<PUT de atualização de Pessoas>`
 
-![Image POSTMAN update](https://github.com/wesllenalves/prova-api-laravel/get-capture-update.GIF)
+![Image POSTMAN update](https://github.com/wesllenalves/prova-api-laravel/blob/master/get-capture-update.GIF)
 
 
 `<DELETE a excluição da Pessoas por id>`
