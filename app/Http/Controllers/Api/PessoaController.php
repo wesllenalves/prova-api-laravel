@@ -16,7 +16,7 @@ class PessoaController extends Controller
      */
     public function index()
     {           
-        return response()->json(Pessoas::all());
+        return response()->json(Pessoas::with('user')->get());
     }
 
     /**
