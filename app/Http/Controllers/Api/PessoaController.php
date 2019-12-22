@@ -16,7 +16,7 @@ class PessoaController extends Controller
      */
     public function index()
     {           
-        return response()->json(Pessoas::all());
+        return response()->json(Pessoas::with('user')->get());
     }
 
     /**
@@ -62,7 +62,7 @@ class PessoaController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Pessoas::findOrFail($id));
+        return response()->json(Pessoas::with('user')->findOrFail($id));
     }
 
     /**
