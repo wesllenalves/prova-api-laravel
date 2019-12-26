@@ -8,7 +8,13 @@ use App\Models\Pessoas;
 use App\Models\Users;
 
 class PessoaController extends Controller
-{
+{   
+
+    public function __construct()
+    {
+      // PLEASE ADD the jwt.auth middleware to protect your resouce
+        $this->middleware('jwt.auth');
+    }
     /**
      * Display a listing of the resource.
      *

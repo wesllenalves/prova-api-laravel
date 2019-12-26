@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+// Please add this line
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Users extends Model
+class Users extends Authenticatable implements JWTSubject
 {   
     protected $table = 'tb_users';
     protected $primaryKey = 'idusers';
@@ -26,6 +29,19 @@ class Users extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // BODY OF THIS CLASS
+  
+    // Please ADD this two methods at the end of the class
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
 
     /**
      * The attributes that should be cast to native types.
