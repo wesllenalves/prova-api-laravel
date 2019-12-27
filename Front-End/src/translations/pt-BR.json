@@ -1,0 +1,16 @@
+{
+    "APP_NAME": "ngX-Rocket",
+    "About": "Sobre",
+    "Hello world !": "Olá Mundo !",
+    "Home": "Home",
+    "Logged in as": "Logado como",
+    "Login": "Conecte-se",
+    "Logout": "Sair",
+    "Password": "Senha",
+    "Password is required": "Senha é obrigatorio",
+    "Username": "Usuario",
+    "Username is required": "Usuario é obrigatorio",
+    "Username or password incorrect.": "Usuario e senha incorretos.",
+    "Remember me": "Lembrar-me",
+    "Version": "Versão"
+  }
