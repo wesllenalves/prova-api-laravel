@@ -4,9 +4,20 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\JWTAuth;
 
 class APILoginController extends Controller
-{
+{   
+    /**
+     * @var JWTAuth
+     */
+    private $jwtAuth;
+    
+    public function __construct(JWTAuth $jwtAuth)
+    {
+        $this->jwtAuth = $jwtAuth;
+    }
+
      //Please add this method
      public function login() {
         // get email and password from request
@@ -23,5 +34,18 @@ class APILoginController extends Controller
             'expires' => auth('api')->factory()->getTTL() * 60, // time to expiration
             
         ]);
+    }
+
+    public function refresh(){
+        $token = $this->jwtAuth->getToken();
+        $token = $this->jwtAuth->refresh($token);
+
+        return response()->json(compact($token));
+    }
+
+    public function logout(){
+        $token = $this->jwtAuth->getToken();
+        $this->jwtAuth->invalidate($token);
+        return response()->json(['logout']);
     }
 }

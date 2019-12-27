@@ -11,15 +11,21 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+Route::group(['namespace' => 'Api\\'], function(){
+  Route::post('auth/login',  'APILoginController@login');
+  Route::post('auth/logout', 'APILoginController@logout');
+  Route::post('auth/refresh', 'APILoginController@refresh');
 });
 
-Route::post('login', 'Api\APILoginController@login');
+Route::group(['middleware' => 'jwt.auth', 'namespace' => 'Api\\'], function(){
+  Route::resource('pesssoas', 'PessoaController', 
+  ['except' => [
+    'create', 'edit'
+  ]]);
+});
 
-Route::resource('pesssoas', 'Api\PessoaController', 
-['except' => [
-  'create', 'edit'
-]]);
 
 
