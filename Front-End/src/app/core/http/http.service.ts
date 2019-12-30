@@ -1,3 +1,4 @@
+import { TokenInterceptor } from './token.interceptor';
 import { Inject, Injectable, InjectionToken, Injector, Optional, Type } from '@angular/core';
 import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -68,7 +69,7 @@ export class HttpService extends HttpClient {
 
     if (!this.interceptors) {
       // Configure default interceptors that can be disabled here
-      this.interceptors = [this.injector.get(ApiPrefixInterceptor), this.injector.get(ErrorHandlerInterceptor)];
+      this.interceptors = [this.injector.get(ApiPrefixInterceptor), this.injector.get(ErrorHandlerInterceptor), this.injector.get(TokenInterceptor)];
     }
   }
 

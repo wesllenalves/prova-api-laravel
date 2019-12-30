@@ -6,9 +6,31 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pessoas;
 use App\Models\Users;
+use Tymon\JWTAuth\JWTAuth;
+use Auth;
 
 class PessoaController extends Controller
-{     
+{   
+    
+     /**
+     * @var JWTAuth
+     */
+    private $jwtAuth;
+    public function __construct(JWTAuth $jwtAuth)
+    {
+        $this->jwtAuth = $jwtAuth;
+    }
+
+
+
+    public function me()
+    {
+        $userpessoa = Users::where('idusers', auth('api')->id())->with('pessoa')->firstOrFail();
+        return response()->json($userpessoa);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +38,7 @@ class PessoaController extends Controller
      */
     public function index()
     {           
-        return response()->json([ 'data' => Pessoas::with('user')->get()]);
+        return response()->json(Pessoas::with('user')->get());
     }
 
     /**

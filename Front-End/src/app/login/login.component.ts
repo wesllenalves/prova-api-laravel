@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Logger, I18nService, AuthenticationService, untilDestroyed } from '@app/core';
+import { Logger, I18nService, AuthenticationService, untilDestroyed, CredentialsService } from '@app/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const log = new Logger('Login');
 
@@ -15,7 +16,7 @@ const log = new Logger('Login');
 })
 export class LoginComponent implements OnInit, OnDestroy {
   version: string | null = environment.version;
-  error: string | undefined;
+  error: any;
   loginForm!: FormGroup;
   isLoading = false;
 
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private i18nService: I18nService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private credentialsService: CredentialsService,
   ) {
     this.createForm();
   }
@@ -35,9 +37,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.isLoading = true;
-    const login$ = this.authenticationService.login(this.loginForm.value);
+    const login$ = this.authenticationService.login(this.loginForm.value);    
     login$
       .pipe(
+        tap( val => { this.credentialsService.setCredentials(val, true)}
+        ),
         finalize(() => {
           this.loginForm.markAsPristine();
           this.isLoading = false;
@@ -50,9 +54,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
         },
         error => {
-          log.debug(`Login error: ${error}`);
-          this.error = error;
-        }
+            this.error = error;
+        } 
       );
 
     // this.authenticationService.logar(this.loginForm.value).subscribe(

@@ -16,8 +16,9 @@ use Illuminate\Http\Request;
 });*/
 Route::group(['namespace' => 'Api\\'], function(){
   Route::post('auth/login',  'APILoginController@login');
-  Route::post('auth/logout', 'APILoginController@logout');
+  Route::get('auth/logout', 'APILoginController@logout');
   Route::post('auth/refresh', 'APILoginController@refresh');
+  
 });
 
 Route::group(['middleware' => 'jwt.auth', 'namespace' => 'Api\\'], function(){
@@ -25,6 +26,7 @@ Route::group(['middleware' => 'jwt.auth', 'namespace' => 'Api\\'], function(){
   ['except' => [
     'create', 'edit'
   ]]);
+  Route::get('auth/me', 'PessoaController@me');
 });
 
 

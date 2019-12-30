@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 
 import { Credentials, CredentialsService } from './credentials.service';
+import { User } from '../interface/user';
 
 export interface LoginContext {
   username: string;
@@ -29,29 +30,56 @@ export class AuthenticationService {
    * @param context The login parameters.
    * @return The user credentials.
    */
-  login(context: LoginContext) {
+  login(context: LoginContext){
     // Replace by proper authentication call
     const data = {
       username: context.username,
       password: context.password
     };
 
-    return this.http
-      .post<any>(`${environment.serverUrl}/auth/login`, data)
-      .pipe(tap(val => this.credentialsService.setCredentials(val, context.remember)));
+    const dataCredencials = {
+      username: context.username
+    }
+
+    this.credentialsService.setCredentials(dataCredencials, context.remember)
+    //console.log(context);
+
+    return this.http.post(`${environment.serverUrl}/auth/login`, data);
+      /* .pipe(
+        tap( 
+          val => this.credentialsService.setCredentials(val, context.remember)
+        )
+      ); */ 
+
+       
   }
 
-  logar(credential: { email: string; password: string }) {
-    return this.http.post(`${environment.serverUrl}auth/login`, credential);
-  }
 
   /**
    * Logs out the user and clear credentials.
    * @return True if the user was logged out successfully.
    */
-  logout(): Observable<boolean> {
+  logout(): void {
     // Customize credentials invalidation here
-    this.credentialsService.setCredentials();
-    return of(true);
+    
+    this.http.get(`${environment.serverUrl}/auth/logout`).subscribe( resp =>{
+      console.log(resp);
+      this.credentialsService.setCredentials();
+    });
+    //return of(true);
+  }
+
+  getUser(): User{
+    return localStorage.getItem('credentials') ? JSON.parse(localStorage.getItem('credentials')) : null; 
+  }
+
+  setUser(): Promise<boolean>{
+    return this.http.get<any>(`${environment.serverUrl}/auth/me`).toPromise().then(data => {
+      if(data.user){        
+        this.credentialsService.setCredentials(data.user, true)
+        return true;
+      }
+      return false;
+    });
   }
 }

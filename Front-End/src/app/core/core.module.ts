@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { RouteReusableStrategy } from './route-reusable-strategy';
 import { HttpService } from './http/http.service';
+import { TokenInterceptor } from './http/token.interceptor';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule, TranslateModule, RouterModule],
@@ -17,7 +18,12 @@ import { HttpService } from './http/http.service';
     {
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy
-    }
+    },
+    /* {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: TokenInterceptor,
+       multi: true
+    } */
   ]
 })
 export class CoreModule {

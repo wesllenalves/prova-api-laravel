@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 //use JWTAuth;
 use Tymon\JWTAuth\JWTAuth;
+use App\Models\Users;
 use Auth;
 
 class APILoginController extends Controller
@@ -28,10 +29,10 @@ class APILoginController extends Controller
         // try to auth and get the token using api authentication
         if (!$token = auth('api')->attempt($credentials)) {
             // if the credentials are wrong we send an unauthorized error in json format
-            return response()->json(['error' => 'Unauthorized code:401'], 401);
+            return response()->json(['error' => 'invalid_credentials'], 401);
         }
-
-        $user = auth('api')->user();
+        
+        $user = Users::where('idusers', auth('api')->id())->with('pessoa')->firstOrFail();;
 
         return response()->json([
             'token' => $token,
@@ -42,10 +43,7 @@ class APILoginController extends Controller
         ]);
     }
 
-    public function me()
-    {
-        return response()->json(auth()->user());
-    }
+    
 
     public function refresh(){
         $token = Auth::guard('api')->refresh();

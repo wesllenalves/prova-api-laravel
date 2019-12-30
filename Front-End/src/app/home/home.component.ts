@@ -1,3 +1,4 @@
+import { AuthenticationService } from '@app/core';
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
   quote: string | undefined;
   isLoading = false;
 
-  constructor(private quoteService: QuoteService) {}
+  constructor(private quoteService: QuoteService,
+    private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -26,5 +28,10 @@ export class HomeComponent implements OnInit {
       .subscribe((quote: string) => {
         this.quote = quote;
       });
+      
+  }
+
+  getUser(){
+    return this.authenticationService.getUser();
   }
 }
