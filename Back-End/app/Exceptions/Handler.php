@@ -51,19 +51,19 @@ class Handler extends ExceptionHandler
         
          // PLEASE ADD THIS LINES
          if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-            return response()->json(['error' => 'token_expired']);
+            return response()->json(['error' => 'token_expired'], 401);
         }
         else if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
-            return response()->json(['error' => 'Token has expired']);
+            return response()->json(['error' => 'Token_has_expired'], 401);
         }
         else if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-            return response()->json(['error' => 'token_invalid']);
+            return response()->json(['error' => 'token_invalid'], 401);
         }
         else if ($exception instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
-            return response()->json(['error' => $exception->getMessage()]);
+            return response()->json(['error' => $exception->getMessage()], 401);
         }
         else if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException){
-            return response()->json(['error' => 'token_has_been_blacklisted']);
+            return response()->json(['error' => 'token_has_been_blacklisted'], 401);
         }
         return parent::render($request, $exception);
     

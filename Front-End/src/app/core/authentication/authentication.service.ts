@@ -10,8 +10,6 @@ import { User } from '../interface/user';
 
 export interface LoginContext {
   username: string;
-  password: string;
-  token: string;
   remember?: boolean;
 }
 
@@ -33,26 +31,17 @@ export class AuthenticationService {
   login(context: LoginContext){
     // Replace by proper authentication call
     const data = {
-      username: context.username,
-      password: context.password
+      username: context.username
     };
 
-    const dataCredencials = {
-      username: context.username
+    
+    //console.log(data);
+    //this.credentialsService.setCredentials(data, context.remember);
+
+    return this.http.post(`${environment.serverUrl}/auth/login`, context).pipe(
+        tap( val => {this.credentialsService.setCredentials(val, context.remember);})
+      );    
     }
-
-    this.credentialsService.setCredentials(dataCredencials, context.remember)
-    //console.log(context);
-
-    return this.http.post(`${environment.serverUrl}/auth/login`, data);
-      /* .pipe(
-        tap( 
-          val => this.credentialsService.setCredentials(val, context.remember)
-        )
-      ); */ 
-
-       
-  }
 
 
   /**
@@ -81,5 +70,9 @@ export class AuthenticationService {
       }
       return false;
     });
+  }
+
+  refreshToken() {
+    return this.http.post(`${environment.serverUrl}/auth/refresh`, {});
   }
 }

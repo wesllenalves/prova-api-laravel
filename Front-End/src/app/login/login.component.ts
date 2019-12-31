@@ -39,9 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     const login$ = this.authenticationService.login(this.loginForm.value);    
     login$
-      .pipe(
-        tap( val => { this.credentialsService.setCredentials(val, true)}
-        ),
+      .pipe(         
         finalize(() => {
           this.loginForm.markAsPristine();
           this.isLoading = false;

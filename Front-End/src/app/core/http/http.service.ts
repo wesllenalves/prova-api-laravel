@@ -1,4 +1,3 @@
-import { TokenInterceptor } from './token.interceptor';
 import { Inject, Injectable, InjectionToken, Injector, Optional, Type } from '@angular/core';
 import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -6,6 +5,8 @@ import { Observable } from 'rxjs';
 import { ErrorHandlerInterceptor } from './error-handler.interceptor';
 import { CacheInterceptor } from './cache.interceptor';
 import { ApiPrefixInterceptor } from './api-prefix.interceptor';
+import { TokenInterceptor } from './token.interceptor';
+import { RefreshTokenInterceptor } from './refresh-token.interceptor';
 
 // HttpClient is declared in a re-exported module, so we have to extend the original module to make it work properly
 // (see https://github.com/Microsoft/TypeScript/issues/13897)
@@ -69,7 +70,7 @@ export class HttpService extends HttpClient {
 
     if (!this.interceptors) {
       // Configure default interceptors that can be disabled here
-      this.interceptors = [this.injector.get(ApiPrefixInterceptor), this.injector.get(ErrorHandlerInterceptor), this.injector.get(TokenInterceptor)];
+      this.interceptors = [this.injector.get(ApiPrefixInterceptor), this.injector.get(ErrorHandlerInterceptor),  this.injector.get(RefreshTokenInterceptor)];
     }
   }
 

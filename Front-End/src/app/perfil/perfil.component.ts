@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '@app/core';
 import { Component, OnInit } from '@angular/core';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -8,11 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilComponent implements OnInit {
 
-  constructor(private auth: AuthenticationService) { }
+  constructor(private auth: AuthenticationService, private http: HttpClient) { }
 
   ngOnInit() {
     const token = JSON.parse(localStorage.getItem('credentials')).token;
-    console.log(token);
+    this.http.get<any>(`${environment.serverUrl}/auth/me`).subscribe( data =>{
+      console.log(data)
+    });
   }
 
 }

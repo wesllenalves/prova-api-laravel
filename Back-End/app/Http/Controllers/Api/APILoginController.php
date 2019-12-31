@@ -32,7 +32,7 @@ class APILoginController extends Controller
             return response()->json(['error' => 'invalid_credentials'], 401);
         }
         
-        $user = Users::where('idusers', auth('api')->id())->with('pessoa')->firstOrFail();;
+        $user = Users::where('idusers', auth('api')->id())->firstOrFail();
 
         return response()->json([
             'token' => $token,
@@ -40,7 +40,7 @@ class APILoginController extends Controller
             'expires' => auth('api')->factory()->getTTL() * 60, // time to expiration
             'user' => $user,
             
-        ]);
+        ], 200);
     }
 
     
@@ -51,12 +51,12 @@ class APILoginController extends Controller
             'status' => 'ok',
             'token' => $token,
             'expires_in' => Auth::guard('api')->factory()->getTTL() * 60
-        ]);
+        ], 200);
     }
 
     public function logout(){
         $token = $this->jwtAuth->getToken();
         $this->jwtAuth->invalidate($token);
-        return response()->json(['logout']);
+        return response()->json(['logout'], 200);
     }
 }
