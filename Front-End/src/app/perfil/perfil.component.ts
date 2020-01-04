@@ -9,14 +9,22 @@ import { environment } from '@env/environment';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
-
-  constructor(private auth: AuthenticationService, private http: HttpClient) { }
+  constructor(private auth: AuthenticationService, private http: HttpClient) {}
 
   ngOnInit() {
-    const token = JSON.parse(localStorage.getItem('credentials')).token;
-    this.http.get<any>(`${environment.serverUrl}/auth/me`).subscribe( data =>{
-      console.log(data)
-    });
+    //const token = JSON.parse(localStorage.getItem('credentials')).token;
+    //console.log(this.auth.getJwtToken());
+    return this.http.get<any>(`${environment.serverUrl}/auth/me`).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
+  refrestoken() {
+    this.auth.refreshToken().subscribe();
+  }
 }

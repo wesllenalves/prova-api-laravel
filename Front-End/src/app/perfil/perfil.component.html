@@ -1,6 +1,10 @@
 <div class="container-fluid">
-    <div class="jumbotron text-center">
-        <p>Usuario: {{ auth.getUser().user.username}}</p><br>
-        <p>E-mail: {{ auth.getUser().user.email}}</p>
+  <div class="jumbotron text-center">
+    <p>Usuario: {{ auth.getUser().user.username }}</p>
+    <br />
+    <p>E-mail: {{ auth.getUser().user.email }}</p>
+    <div class="col-md-4">
+      <button class="btn btn-primary" (click)="refrestoken()">refrestoken</button>
     </div>
+  </div>
 </div>

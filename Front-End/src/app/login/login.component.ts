@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private i18nService: I18nService,
     private authenticationService: AuthenticationService,
-    private credentialsService: CredentialsService,
+    private credentialsService: CredentialsService
   ) {
     this.createForm();
   }
@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.isLoading = true;
-    const login$ = this.authenticationService.login(this.loginForm.value);    
+    const login$ = this.authenticationService.login(this.loginForm.value);
     login$
-      .pipe(         
+      .pipe(
         finalize(() => {
           this.loginForm.markAsPristine();
           this.isLoading = false;
@@ -48,12 +48,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         credentials => {
-          log.debug(`${credentials.user.username} successfully logged in`);
+          // log.debug(`${credentials.user.username} successfully logged in`);
           this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
         },
         error => {
-            this.error = error;
-        } 
+          this.error = error;
+        }
       );
 
     // this.authenticationService.logar(this.loginForm.value).subscribe(

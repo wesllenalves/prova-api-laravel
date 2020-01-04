@@ -32,7 +32,7 @@ import { PerfilModule } from './perfil/perfil.module';
     HomeModule,
     AboutModule,
     LoginModule,
-    PerfilModule,    
+    PerfilModule,
     AppRoutingModule // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],

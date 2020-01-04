@@ -18,7 +18,7 @@ import { TokenInterceptor } from './http/token.interceptor';
     {
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy
-    },
+    }
     /* {
       provide: HTTP_INTERCEPTORS, 
       useClass: TokenInterceptor,

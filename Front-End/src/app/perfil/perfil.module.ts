@@ -10,4 +10,4 @@ import { PerfilComponent } from './perfil.component';
   imports: [CommonModule, TranslateModule, CoreModule, SharedModule, PerfilRoutingModule],
   declarations: [PerfilComponent]
 })
-export class PerfilModule { }
+export class PerfilModule {}
