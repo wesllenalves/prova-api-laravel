@@ -5,9 +5,10 @@ import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { PerfilRoutingModule } from './perfil-routing.module';
 import { PerfilComponent } from './perfil.component';
+import { PerfilAddComponent } from './perfil-add/perfil-add.component';
 
 @NgModule({
   imports: [CommonModule, TranslateModule, CoreModule, SharedModule, PerfilRoutingModule],
-  declarations: [PerfilComponent]
+  declarations: [PerfilComponent, PerfilAddComponent]
 })
 export class PerfilModule {}

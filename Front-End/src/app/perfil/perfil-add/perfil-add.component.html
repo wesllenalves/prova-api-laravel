@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="card col-md-12 p-2">
+    <form (ngSubmit)="cadastroPessoa()" [formGroup]="cadastroForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          formControlName="username"
+          placeholder="Nome de Usuario"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" class="form-control" id="email" formControlName="email" placeholder="E-mail" />
+        <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
+      </div>
+      <div class="form-group">
+        <label for="Telefone">Telefone</label>
+        <input type="tel" class="form-control" id="Telefone" formControlName="telefone" placeholder="Telefone" />
+      </div>
+      <div class="form-group">
+        <label for="Whatsaap">Whatsaap</label>
+        <input type="tel" class="form-control" id="Whatsaap" formControlName="whatsaap" placeholder="Whatsaap" />
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </div>
+</div>

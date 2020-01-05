@@ -17,7 +17,7 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const requestUrl: Array<any> = request.url.split('/');
     const ApiUrl: Array<any> = environment.serverUrl.split('/');
-    const token = JSON.parse(localStorage.getItem('JWT_TOKEN'));
+    const token = localStorage.getItem('JWT_TOKEN');
     if (token && requestUrl[2] === ApiUrl[2]) {
       const NewRequest = request.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
       return next.handle(NewRequest);

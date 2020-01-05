@@ -78,6 +78,20 @@ export class AuthenticationService {
     return localStorage.getItem('credentials') ? JSON.parse(localStorage.getItem('credentials')) : null;
   }
 
+  getPessoa() {
+    return this.http.get(`${environment.serverUrl}/pesssoas`);
+  }
+
+  AddPessoa(username, email, telefone, whatsaap) {
+    const ObjPessoa = {
+      username,
+      email,
+      telefone,
+      whatsaap
+    };
+    this.http.post(`${environment.serverUrl}/pesssoas`, ObjPessoa).subscribe(resp => console.log('ok'));
+  }
+
   setUser(): Observable<boolean> {
     return this.http.get<any>(`${environment.serverUrl}/auth/me`).pipe(
       tap(val => {

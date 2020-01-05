@@ -73,6 +73,7 @@ export class HttpService extends HttpClient {
       this.interceptors = [
         this.injector.get(ApiPrefixInterceptor),
         this.injector.get(ErrorHandlerInterceptor),
+        this.injector.get(TokenInterceptor),
         this.injector.get(RefreshTokenInterceptor)
       ];
     }

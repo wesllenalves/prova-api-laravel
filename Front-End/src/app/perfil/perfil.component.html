@@ -1,10 +1,38 @@
-<div class="container-fluid">
-  <div class="jumbotron text-center">
-    <p>Usuario: {{ auth.getUser().user.username }}</p>
-    <br />
-    <p>E-mail: {{ auth.getUser().user.email }}</p>
-    <div class="col-md-4">
-      <button class="btn btn-primary" (click)="refrestoken()">refrestoken</button>
+<div class="container">
+  <div class="col-md-12">
+    <div class="row justify-content-end">
+      <button (click)="adicionarpessoa()" class="btn btn-success rounded m-1">
+        <i class="fas fa-2x fa-plus-circle"></i>
+      </button>
     </div>
   </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td><b>#</b></td>
+        <td><b>Username</b></td>
+        <td align="center"><b>E-mail</b></td>
+        <td align="center"><b>Telefone</b></td>
+        <td align="center"><b>Whatsaap</b></td>
+        <td align="center"><b>Ações</b></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pessoa of pessoas">
+        <td>{{ pessoa.id }}</td>
+        <td>{{ pessoa.user.username }}</td>
+        <td align="center">{{ pessoa.email }}</td>
+        <td align="center">{{ pessoa.nu_telefone }}</td>
+        <td align="center">{{ pessoa.nu_whatsapp }}</td>
+        <td align="center">
+          <a [routerLink]="['/pessoas/', pessoa.id]" class="btn btn-primary mr-2">
+            <i class="far fa-edit"></i>
+          </a>
+          <button (click)="excluirpessoa(pessoa.id)" class="btn btn-danger mr-2">
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
