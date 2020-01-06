@@ -1,3 +1,4 @@
+import { Pessoa } from './../interface/pessoa';
 import { environment } from './../../../environments/environment';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -82,14 +83,8 @@ export class AuthenticationService {
     return this.http.get(`${environment.serverUrl}/pesssoas`);
   }
 
-  AddPessoa(username, email, telefone, whatsaap) {
-    const ObjPessoa = {
-      username,
-      email,
-      telefone,
-      whatsaap
-    };
-    this.http.post(`${environment.serverUrl}/pesssoas`, ObjPessoa).subscribe(resp => console.log('ok'));
+  AddPessoa(Pessoa: any) {
+    return this.http.post(`${environment.serverUrl}/pesssoas/add`, Pessoa);
   }
 
   setUser(): Observable<boolean> {

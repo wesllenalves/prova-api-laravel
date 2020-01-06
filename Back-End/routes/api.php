@@ -22,11 +22,9 @@ Route::group(['namespace' => 'Api\\'], function(){
 });
 
 Route::group(['middleware' => 'jwt.auth', 'namespace' => 'Api\\'], function(){
-  Route::resource('pesssoas', 'PessoaController', 
-  ['except' => [
-    'create', 'edit'
-  ]]);
+  Route::resource('pesssoas', 'PessoaController');
   Route::get('auth/me', 'PessoaController@me');
+  Route::post('pesssoas/add', 'PessoaController@add');
 });
 
 

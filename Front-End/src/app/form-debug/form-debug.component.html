@@ -1,0 +1,17 @@
+<div class="jumbotron p-0" *ngIf="form" style="margin-top: 20px;">
+  <p class="text-center pt-0">Detalhes do Formulario:</p>
+  <pre>
+            Form válido: {{ form.valid }}
+        </pre
+  >
+
+  <pre>
+            Form submetido: {{ form.submitted }}
+        </pre
+  >
+
+  <pre>
+            Form valores: {{ form.value | json }}
+        </pre
+  >
+</div>

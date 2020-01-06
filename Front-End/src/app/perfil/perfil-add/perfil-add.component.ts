@@ -1,21 +1,67 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { AuthenticationService } from '@app/core';
-import { Component, OnInit } from '@angular/core';
+import { AuthenticationService, untilDestroyed } from '@app/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '@env/environment';
-import { getMaxListeners } from 'cluster';
+import { finalize, tap } from 'rxjs/operators';
 import SWT from 'sweetalert2';
+
 @Component({
+  selector: 'app-login',
   templateUrl: './perfil-add.component.html',
   styleUrls: ['./perfil-add.component.scss']
 })
-export class PerfilAddComponent implements OnInit {
+export class PerfilAddComponent implements OnInit, OnDestroy {
   cadastroForm!: FormGroup;
-  constructor(private http: HttpClient, private FormBuilder: FormBuilder) {}
+  isLoading = false;
+  error: any;
 
-  ngOnInit() {}
+  constructor(
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {
+    this.createForm();
+  }
 
-  cadastroPessoa() {
-    alert('clicou');
+  ngOnInit() {
+    this.cadastroForm;
+  }
+
+  private cadastroPessoa() {
+    const val = this.authenticationService.AddPessoa(this.cadastroForm.value);
+    val
+      .pipe(
+        finalize(() => {
+          this.cadastroForm.markAsPristine();
+          this.isLoading = true;
+        })
+        //untilDestroyed(this)
+      )
+      .subscribe(
+        resp => {
+          this.router.navigate(['/profile'], { replaceUrl: true });
+        },
+        error => {
+          console.log(error);
+          this.error = error;
+          this.isLoading = false;
+        }
+      );
+  }
+
+  private createForm() {
+    this.cadastroForm = this.formBuilder.group({
+      username: [null, Validators.required],
+      email: [null, Validators.required],
+      password: [null, Validators.required],
+      no_pessoa: [null, Validators.required],
+      nu_cpf: [null, Validators.required],
+      nu_telefone: [null, Validators.required],
+      nu_whatsapp: [null, Validators.required],
+      nu_rg: [null, Validators.required]
+    });
   }
 }

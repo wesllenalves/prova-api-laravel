@@ -17,6 +17,7 @@ import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PerfilModule } from './perfil/perfil.module';
+import { FormDebugComponent } from './form-debug/form-debug.component';
 
 @NgModule({
   imports: [

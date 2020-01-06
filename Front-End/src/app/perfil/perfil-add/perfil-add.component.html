@@ -1,30 +1,118 @@
 <div class="container">
   <div class="card col-md-12 p-2">
-    <form (ngSubmit)="cadastroPessoa()" [formGroup]="cadastroForm">
+    <form #f="ngForm" method="post" (ngSubmit)="cadastroPessoa()" [formGroup]="cadastroForm">
+      <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+        Algum dados nao esta incorrect.
+      </div>
+      <h3>Dados de Usuario</h3>
+      <small
+        [hidden]="cadastroForm.controls.username.valid || cadastroForm.controls.username.untouched"
+        class="text-danger"
+        translate
+      >
+        Username is required
+      </small>
       <div class="form-group">
         <label for="username">Username</label>
         <input
           type="text"
           class="form-control"
           id="username"
-          formControlName="username"
           placeholder="Nome de Usuario"
+          formControlName="username"
         />
       </div>
+      <small
+        [hidden]="cadastroForm.controls.email.valid || cadastroForm.controls.email.untouched"
+        class="text-danger"
+        translate
+      >
+        Email is required
+      </small>
       <div class="form-group">
         <label for="email">E-mail</label>
-        <input type="email" class="form-control" id="email" formControlName="email" placeholder="E-mail" />
+        <input type="email" class="form-control" id="email" placeholder="E-mail" formControlName="email" />
         <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
       </div>
+      <small
+        [hidden]="cadastroForm.controls.password.valid || cadastroForm.controls.password.untouched"
+        class="text-danger"
+        translate
+      >
+        Password is required
+      </small>
       <div class="form-group">
-        <label for="Telefone">Telefone</label>
-        <input type="tel" class="form-control" id="Telefone" formControlName="telefone" placeholder="Telefone" />
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" />
       </div>
+      <h3>Dados de Pessoais</h3>
+      <small
+        [hidden]="cadastroForm.controls.no_pessoa.valid || cadastroForm.controls.no_pessoa.untouched"
+        class="text-danger"
+        translate
+      >
+        Username is required
+      </small>
       <div class="form-group">
-        <label for="Whatsaap">Whatsaap</label>
-        <input type="tel" class="form-control" id="Whatsaap" formControlName="whatsaap" placeholder="Whatsaap" />
+        <label for="no_pessoa">Nome Completo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="no_pessoa"
+          placeholder="Nome de Usuario"
+          formControlName="no_pessoa"
+        />
       </div>
-      <button type="submit" class="btn btn-primary">Enviar</button>
+      <small
+        [hidden]="cadastroForm.controls.nu_cpf.valid || cadastroForm.controls.nu_cpf.untouched"
+        class="text-danger"
+        translate
+      >
+        CPF is required
+      </small>
+      <div class="form-group">
+        <label for="nu_cpf">CPF</label>
+        <input type="text" class="form-control" id="nu_cpf" placeholder="CPF" formControlName="nu_cpf" />
+      </div>
+      <small
+        [hidden]="cadastroForm.controls.nu_rg.valid || cadastroForm.controls.nu_rg.untouched"
+        class="text-danger"
+        translate
+      >
+        RG is required
+      </small>
+      <div class="form-group">
+        <label for="nu_rg">RG</label>
+        <input type="text" class="form-control" id="nu_rg" placeholder="RG" formControlName="nu_rg" />
+      </div>
+      <small
+        [hidden]="cadastroForm.controls.nu_telefone.valid || cadastroForm.controls.nu_telefone.untouched"
+        class="text-danger"
+        translate
+      >
+        Telefone is required
+      </small>
+      <div class="form-group">
+        <label for="nu_telefone">Telefone</label>
+        <input type="tel" class="form-control" id="nu_telefone" placeholder="Telefone" formControlName="nu_telefone" />
+      </div>
+      <small
+        [hidden]="cadastroForm.controls.nu_whatsapp.valid || cadastroForm.controls.nu_whatsapp.untouched"
+        class="text-danger"
+        translate
+      >
+        Whatsaap is required
+      </small>
+      <div class="form-group">
+        <label for="nu_whatsapp">Whatsaap</label>
+        <input type="tel" class="form-control" id="nu_whatsapp" placeholder="whatsaap" formControlName="nu_whatsapp" />
+      </div>
+      <button type="submit" [disabled]="cadastroForm.invalid || isLoading" [hidden]="isLoading" class="btn btn-primary">
+        Enviar
+      </button>
     </form>
+    <br />
+
+    <app-form-debug [form]="f"></app-form-debug>
   </div>
 </div>

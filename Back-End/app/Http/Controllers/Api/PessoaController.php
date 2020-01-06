@@ -8,6 +8,7 @@ use App\Models\Pessoas;
 use App\Models\Users;
 use Tymon\JWTAuth\JWTAuth;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PessoaController extends Controller
 {   
@@ -46,9 +47,40 @@ class PessoaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+
+    public function add(Request $request )
     {
-        //
+        $users = new Users;
+
+        $users->username = $request->get('username');
+        $users->email = $request->get('email');
+        $users->password = Hash::make($request->get('password'));
+        $users->save();
+        $id = $users->idusers;
+
+
+        $pessoas = new Pessoas;
+
+        $pessoas->no_pessoa = $request->get('no_pessoa');
+        $pessoas->nu_cpf = $request->get('nu_cpf');
+        $pessoas->email = $request->get('email');
+        $pessoas->nu_telefone = $request->get('nu_telefone');
+        $pessoas->nu_whatsapp = $request->get('nu_whatsapp');
+        $pessoas->nu_rg = $request->get('nu_rg');
+        $pessoas->users_id = $id;
+        $pessoas->save();
+
+        
+        return response()->json([
+            $users,
+            $pessoas
+        ], 200);
+    }
+
+    public function create(Request $request )
+    {
+        
+        return $request;
     }
 
     /**
@@ -75,6 +107,8 @@ class PessoaController extends Controller
         $pessoas = Pessoas::create($request->all());
         return response()->json($pessoas, 201); 
     }
+
+    
 
     /**
      * Display the specified resource.

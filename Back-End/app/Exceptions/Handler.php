@@ -59,6 +59,9 @@ class Handler extends ExceptionHandler
         else if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
             return response()->json(['error' => 'token_invalid'], 401);
         }
+        else if ($exception instanceof \Illuminate\Database\QueryException) {
+            return response()->json(['error' => $exception->getMessage()], 401);
+        }
         else if ($exception instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
             return response()->json(['error' => $exception->getMessage()], 401);
         }

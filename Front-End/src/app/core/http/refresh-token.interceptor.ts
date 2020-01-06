@@ -40,7 +40,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
       });
     }
 
-    request = this.addAuthenticationToken(request);
+    //request = this.addAuthenticationToken(request);
 
     const token = localStorage.getItem('REFRESH_TOKEN');
     let refresh = false;
